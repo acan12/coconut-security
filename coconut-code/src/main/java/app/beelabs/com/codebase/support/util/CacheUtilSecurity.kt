@@ -43,7 +43,7 @@ class CacheUtilSecurity {
                 var decyp: ByteArray = EncryptUtil.decryptByteArray(value, EncryptUtil.KEYENC)
                 String(decyp)
             } catch (e: Exception) {
-                "-"
+                def
             }
 
         }
