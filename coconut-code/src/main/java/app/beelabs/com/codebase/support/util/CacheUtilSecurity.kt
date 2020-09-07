@@ -37,8 +37,8 @@ class CacheUtilSecurity {
             editor.putBoolean(key, value).commit()
         }
 
-        fun getPreferenceString(key: String?, context: Context): String? {
-            val value: String = getSharedPreference(context).getString(key, "")
+        fun getPreferenceString(key: String?, def: String?, context: Context): String? {
+            val value: String = getSharedPreference(context).getString(key, def)
             return try {
                 var decyp: ByteArray = EncryptUtil.decryptByteArray(value, EncryptUtil.KEYENC)
                 String(decyp)
@@ -48,12 +48,12 @@ class CacheUtilSecurity {
 
         }
 
-        fun getPreferenceInteger(key: String?, context: Context): Int {
-            return getSharedPreference(context).getInt(key, 0)
+        fun getPreferenceInteger(key: String?, def: Int, context: Context): Int {
+            return getSharedPreference(context).getInt(key, def)
         }
 
-        fun getPreferenceBoolean(key: String?, context: Context): Boolean? {
-            return getSharedPreference(context).getBoolean(key, false)
+        fun getPreferenceBoolean(key: String?, def: Boolean, context: Context): Boolean? {
+            return getSharedPreference(context).getBoolean(key, def)
         }
 
         fun clearPreference(context: Context) {
