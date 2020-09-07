@@ -1,9 +1,8 @@
 package app.beelabs.com.coconut.model.api;
 
 import app.beelabs.com.coconut.model.api.request.Login2RequestModel;
-import app.beelabs.com.coconut.model.api.request.LoginRequestModel;
-import app.beelabs.com.coconut.model.api.request.PhoneRequestModel;
 import app.beelabs.com.coconut.model.api.response.ArticleResponse;
+import app.beelabs.com.coconut.model.api.response.HistorySummaryResponse;
 import app.beelabs.com.coconut.model.api.response.LoginResponseModel;
 import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.codebase.base.response.BaseResponse;
@@ -29,7 +28,6 @@ public interface ApiService {
     Call<BaseResponse> checkAppVersion();
 
 
-
     @Headers({
             "Cache-Control: no-cache",
             "Cache-Control: no-store",
@@ -48,11 +46,11 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("merchant/rest/sfa/historySummary")
-    Call<BaseResponse> callApiTestFintech( @Field("phoneNumber") String phone);
+    Call<HistorySummaryResponse> callApiTestFintech(@Field("phoneNumber") String phone);
 
-    @POST("merchant/rest/sfa/historySummary")
-    Call<BaseResponse> callApiTestFintech2( @Body PhoneRequestModel model);
-    
+//    @POST("merchant/rest/sfa/historySummary")
+//    Call<BaseResponse> callApiTestFintech2( @Body PhoneRequestModel model);
+
     @POST("sfa/auth/login")
     Call<LoginResponseModel> callApiLogin(@Body Login2RequestModel model);
 }

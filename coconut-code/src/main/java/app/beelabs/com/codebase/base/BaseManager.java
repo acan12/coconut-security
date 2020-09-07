@@ -18,6 +18,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import app.beelabs.com.codebase.base.request.RequestInterceptor;
+import okhttp3.CertificatePinner;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -27,10 +28,21 @@ import okhttp3.logging.HttpLoggingInterceptor;
  */
 
 public class BaseManager {
-    protected OkHttpClient getHttpClient(boolean allowUntrustedSSL,
-                                         int timeout,
-                                         boolean enableLoggingHttp,
-                                         Interceptor[] customInterceptors) {
+
+    protected OkHttpClient getHttpClient(
+            boolean allowUntrustedSSL,
+            int timeout,
+            boolean enableLoggingHttp,
+            Interceptor[] customInterceptors) {
+        return getHttpClientWithSecurity(allowUntrustedSSL, timeout, enableLoggingHttp, customInterceptors, null);
+    }
+
+    protected OkHttpClient getHttpClientWithSecurity(
+            boolean allowUntrustedSSL,
+            int timeout,
+            boolean enableLoggingHttp,
+            Interceptor[] customInterceptors,
+            CertificatePinner cp) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         if (allowUntrustedSSL) {
@@ -59,12 +71,17 @@ public class BaseManager {
             httpClient.addInterceptor(logging);
         }
 
-
+        // Checking for custom interceptor usage
         if (customInterceptors != null) {
             for (Interceptor interceptor : customInterceptors) {
                 httpClient.addInterceptor(interceptor);
             }
         }
+
+        // Checking for certificate pinner
+        if (cp != null)
+            httpClient.certificatePinner(cp);
+
         return httpClient.build();
     }
 

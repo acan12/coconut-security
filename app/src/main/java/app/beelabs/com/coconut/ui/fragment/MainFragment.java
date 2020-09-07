@@ -1,17 +1,16 @@
 package app.beelabs.com.coconut.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import app.beelabs.com.coconut.App;
 import app.beelabs.com.coconut.IConfig;
-import app.beelabs.com.coconut.model.api.response.SourceResponse;
 import app.beelabs.com.coconut.presenter.dao.ResourceDao;
-import app.beelabs.com.coconut.ui.MainActivity;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.BaseFragment;
@@ -39,9 +38,9 @@ public class MainFragment extends BaseFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-
     @Override
     protected void onApiResponseCallback(BaseResponse mr, int keyID, Response response) {
+        Log.d("", "");
 //        if (mr.getBaseMeta().isStatus()) {
 //            Toast.makeText(getActivity(), "Status: OK, Size= " + ((SourceResponse)mr).getSources().size(), Toast.LENGTH_LONG).show();
 //        } else {

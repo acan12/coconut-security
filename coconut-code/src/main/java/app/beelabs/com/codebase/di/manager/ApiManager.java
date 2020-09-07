@@ -1,5 +1,6 @@
 package app.beelabs.com.codebase.di.manager;
 
+import app.beelabs.com.codebase.ConfigNetworkSecurity;
 import app.beelabs.com.codebase.base.BaseManager;
 import app.beelabs.com.codebase.di.IApi;
 import app.beelabs.com.codebase.di.IApiService;
@@ -39,6 +40,24 @@ public class ApiManager extends BaseManager implements IApi {
                 .client(getHttpClient(allowUntrusted, timeout, enableLoggingHttp, interceptors))
                 .build();
         api = retrofit.create(clazz);
+
+        return api;
+    }
+
+    @Override
+    public Object initApiServiceWithSecurity(
+            ConfigNetworkSecurity configNetworkSecurity) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(configNetworkSecurity.getApiDomain())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .client(getHttpClientWithSecurity(
+                        configNetworkSecurity.getAllowUntrusted(),
+                        configNetworkSecurity.getTimeout(),
+                        configNetworkSecurity.getEnableLoggingHttp(),
+                        configNetworkSecurity.getInterceptors(),
+                        configNetworkSecurity.getCertifcatePinner()))
+                .build();
+        api = retrofit.create((Class<Object>) configNetworkSecurity.getClazz());
 
         return api;
     }

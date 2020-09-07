@@ -1,7 +1,8 @@
 package app.beelabs.com.codebase.base;
 
-import android.support.v4.app.Fragment;
 import android.util.Log;
+
+import androidx.fragment.app.Fragment;
 
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.ProgressDialogComponent;
@@ -37,7 +38,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void onApiFailureCallback(String message) {
-        Log.e("Message:", message+ "");
+        Log.e("Message:", message + "");
     }
 
 

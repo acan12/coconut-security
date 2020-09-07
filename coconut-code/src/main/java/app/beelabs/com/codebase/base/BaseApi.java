@@ -1,9 +1,9 @@
 package app.beelabs.com.codebase.base;
 
 
+import app.beelabs.com.codebase.ConfigNetworkSecurity;
 import app.beelabs.com.codebase.IConfig;
 import app.beelabs.com.codebase.di.IApi;
-import app.beelabs.com.codebase.di.IApiService;
 import app.beelabs.com.codebase.di.component.AppComponent;
 import okhttp3.Interceptor;
 
@@ -39,9 +39,14 @@ public class BaseApi {
         return api.initApiService(getApiDomain(), allowUntrusted, clazz, timeout, enableLoggingHttp, PedePublicKeyRSA);
     }
 
-    public Object setupApiWithInterceptors(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp, Interceptor[] interceptors){
+    public Object setupApiWithInterceptors(String domain, AppComponent appComponent, Class clazz, boolean allowUntrusted, int timeout, boolean enableLoggingHttp, Interceptor[] interceptors) {
         this.apiDomain = domain;
         return appComponent.getApi().initApiService(domain, allowUntrusted, clazz, timeout, enableLoggingHttp, interceptors);
+    }
+
+    public Object setupApiWithSecurity(ConfigNetworkSecurity configNetworkSecurity, AppComponent appComponent) {
+        this.apiDomain = configNetworkSecurity.getApiDomain();
+        return appComponent.getApi().initApiServiceWithSecurity(configNetworkSecurity);
     }
 }
 

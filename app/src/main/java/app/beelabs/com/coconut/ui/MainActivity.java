@@ -9,14 +9,14 @@ import app.beelabs.com.coconut.IConfig;
 import app.beelabs.com.coconut.R;
 import app.beelabs.com.coconut.model.api.request.Login2RequestModel;
 import app.beelabs.com.coconut.model.api.request.Login2RequestModel.DataRequestModel;
-import app.beelabs.com.coconut.model.api.request.LoginRequestModel;
 import app.beelabs.com.coconut.model.api.request.PhoneRequestModel;
-import app.beelabs.com.coconut.model.api.response.LoginResponseModel;
 import app.beelabs.com.coconut.presenter.dao.ResourceDao;
+import app.beelabs.com.coconut.ui.fragment.MainFragment;
 import app.beelabs.com.codebase.base.BaseActivity;
 import app.beelabs.com.codebase.base.BaseDao;
 import app.beelabs.com.codebase.base.response.BaseResponse;
 import app.beelabs.com.codebase.component.CoconutFrameLayout;
+import app.beelabs.com.codebase.support.util.CacheUtilSecurity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,16 +37,19 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
 
-        showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
-            @Override
-            public void call() {
-                this.postPhoneNumber2(
-                        new PhoneRequestModel("081212341212"), MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
-            }
-        }, "Loading", false);
+        CacheUtilSecurity.Companion.putPreferenceString("NAME", "dodol jawa", MainActivity.this);
+        String nameVal = CacheUtilSecurity.Companion.getPreferenceString("NAME", this);
+        Log.d("", "");
+//        showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
+//            @Override
+//            public void call() {
+//                this.postPhoneNumber2(
+//                        new PhoneRequestModel("081212341212"), MainActivity.this, BaseDao.getInstance(MainActivity.this, IConfig.KEY_CALLER_API_SOURCE).callback);
+//            }
+//        }, "Loading", false);
 
 
-//        showFragment(new MainFragment(), R.id.container);
+        showFragment(new MainFragment(), R.id.container);
 
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
