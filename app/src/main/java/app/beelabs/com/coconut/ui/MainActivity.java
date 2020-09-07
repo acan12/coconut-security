@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
 
 
         CacheUtilSecurity.Companion.putPreferenceString("NAME", "dodol jawa", MainActivity.this);
-        String nameVal = CacheUtilSecurity.Companion.getPreferenceString("NAME", this);
+        String nameVal = CacheUtilSecurity.Companion.getPreferenceString("NAME", "", this);
         Log.d("", "");
 //        showApiProgressDialog(App.getAppComponent(), new ResourceDao(this) {
 //            @Override

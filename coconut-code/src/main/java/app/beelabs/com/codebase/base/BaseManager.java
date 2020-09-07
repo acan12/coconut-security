@@ -49,15 +49,6 @@ public class BaseManager {
             allowUntrustedSSL(httpClient);
         }
 
-
-        try {
-            SSLContext sc = SSLContext.getInstance("TLSv1.2");
-            sc.init(null, null, null);
-            httpClient.sslSocketFactory(new TLS12SocketFactory(sc.getSocketFactory()));
-        } catch (NoSuchAlgorithmException | KeyManagementException e) {
-            e.printStackTrace();
-        }
-
         httpClient.connectTimeout(timeout, TimeUnit.SECONDS)
                 .readTimeout(timeout, TimeUnit.SECONDS)
                 .writeTimeout(timeout, TimeUnit.SECONDS)
